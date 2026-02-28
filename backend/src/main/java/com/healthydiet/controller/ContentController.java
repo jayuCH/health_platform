@@ -1,6 +1,7 @@
 package com.healthydiet.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.healthydiet.annotation.CurrentUserId;
 import com.healthydiet.common.PageQuery;
 import com.healthydiet.common.Result;
 import com.healthydiet.entity.ArticleCategory;
@@ -12,7 +13,6 @@ import com.healthydiet.vo.ArticleVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,7 +39,7 @@ public class ContentController {
     @Operation(summary = "获取资讯列表")
     @GetMapping("/articles")
     public Result<IPage<ArticleVO>> getArticles(
-            @AuthenticationPrincipal(required = false) Long userId,
+            @CurrentUserId(required = false) Long userId,
             @RequestParam(required = false) Long categoryId,
             @RequestParam(required = false) String keyword,
             @ModelAttribute PageQuery pageQuery) {
@@ -49,7 +49,7 @@ public class ContentController {
     @Operation(summary = "获取资讯详情")
     @GetMapping("/article/{id}")
     public Result<ArticleVO> getArticleDetail(
-            @AuthenticationPrincipal(required = false) Long userId,
+            @CurrentUserId(required = false) Long userId,
             @PathVariable Long id) {
         return Result.success(articleService.getArticleDetail(userId, id));
     }
@@ -57,7 +57,7 @@ public class ContentController {
     @Operation(summary = "点赞/取消点赞")
     @PostMapping("/article/{id}/like")
     public Result<Void> toggleLike(
-            @AuthenticationPrincipal Long userId,
+            @CurrentUserId Long userId,
             @PathVariable Long id) {
         articleService.toggleLike(userId, id);
         return Result.success();

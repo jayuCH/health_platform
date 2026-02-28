@@ -1,6 +1,7 @@
 package com.healthydiet.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.healthydiet.annotation.CurrentUserId;
 import com.healthydiet.common.PageQuery;
 import com.healthydiet.common.Result;
 import com.healthydiet.entity.RecipeCategory;
@@ -11,7 +12,6 @@ import com.healthydiet.vo.RecipeVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,7 +37,7 @@ public class RecipeController {
     @Operation(summary = "获取食谱列表")
     @GetMapping("/list")
     public Result<IPage<RecipeVO>> listRecipes(
-            @AuthenticationPrincipal(required = false) Long userId,
+            @CurrentUserId(required = false) Long userId,
             @RequestParam(required = false) Long categoryId,
             @RequestParam(required = false) String keyword,
             @RequestParam(defaultValue = "latest") String sortBy,
@@ -48,7 +48,7 @@ public class RecipeController {
     @Operation(summary = "获取食谱详情")
     @GetMapping("/{id}")
     public Result<RecipeDetailVO> getRecipeDetail(
-            @AuthenticationPrincipal(required = false) Long userId,
+            @CurrentUserId(required = false) Long userId,
             @PathVariable Long id) {
         return Result.success(recipeService.getRecipeDetail(userId, id));
     }
@@ -56,7 +56,7 @@ public class RecipeController {
     @Operation(summary = "收藏/取消收藏食谱")
     @PostMapping("/{id}/collect")
     public Result<Void> toggleCollect(
-            @AuthenticationPrincipal Long userId,
+            @CurrentUserId Long userId,
             @PathVariable Long id) {
         recipeService.toggleCollect(userId, id);
         return Result.success();
@@ -65,7 +65,7 @@ public class RecipeController {
     @Operation(summary = "获取我的收藏")
     @GetMapping("/my-collects")
     public Result<IPage<RecipeVO>> getMyCollects(
-            @AuthenticationPrincipal Long userId,
+            @CurrentUserId Long userId,
             @ModelAttribute PageQuery pageQuery) {
         return Result.success(recipeService.getMyCollects(userId, pageQuery.getCurrent(), pageQuery.getSize()));
     }
@@ -73,7 +73,7 @@ public class RecipeController {
     @Operation(summary = "评分")
     @PostMapping("/{id}/rate")
     public Result<Void> rateRecipe(
-            @AuthenticationPrincipal Long userId,
+            @CurrentUserId Long userId,
             @PathVariable Long id,
             @RequestParam Integer score) {
         recipeService.rateRecipe(userId, id, score);
@@ -83,7 +83,7 @@ public class RecipeController {
     @Operation(summary = "AI生成食谱")
     @PostMapping("/ai-generate")
     public Result<RecipeDetailVO> generateRecipe(
-            @AuthenticationPrincipal Long userId,
+            @CurrentUserId Long userId,
             @RequestParam(required = false) String ingredients,
             @RequestParam(required = false) String dietType,
             @RequestParam(required = false) String mealType,
@@ -95,7 +95,7 @@ public class RecipeController {
     @Operation(summary = "获取推荐食谱")
     @GetMapping("/recommended")
     public Result<IPage<RecipeVO>> getRecommendedRecipes(
-            @AuthenticationPrincipal(required = false) Long userId,
+            @CurrentUserId(required = false) Long userId,
             @RequestParam(defaultValue = "10") Integer size) {
         return Result.success(recipeService.getRecommendedRecipes(userId, size));
     }

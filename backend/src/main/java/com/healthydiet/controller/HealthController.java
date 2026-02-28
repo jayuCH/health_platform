@@ -1,5 +1,6 @@
 package com.healthydiet.controller;
 
+import com.healthydiet.annotation.CurrentUserId;
 import com.healthydiet.common.Result;
 import com.healthydiet.service.HealthRecordService;
 import com.healthydiet.vo.HealthRecordVO;
@@ -8,7 +9,6 @@ import com.healthydiet.vo.HealthTrendVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class HealthController {
     @Operation(summary = "保存健康记录")
     @PostMapping("/record")
     public Result<Void> saveRecord(
-            @AuthenticationPrincipal Long userId,
+            @CurrentUserId Long userId,
             @RequestBody HealthRecordVO recordVO) {
         healthRecordService.saveRecord(userId, recordVO);
         return Result.success();
@@ -35,14 +35,14 @@ public class HealthController {
 
     @Operation(summary = "获取今日健康数据")
     @GetMapping("/today")
-    public Result<HealthRecordVO> getTodayRecord(@AuthenticationPrincipal Long userId) {
+    public Result<HealthRecordVO> getTodayRecord(@CurrentUserId Long userId) {
         return Result.success(healthRecordService.getTodayRecord(userId));
     }
 
     @Operation(summary = "获取健康记录列表")
     @GetMapping("/records")
     public Result<List<HealthRecordVO>> getRecords(
-            @AuthenticationPrincipal Long userId,
+            @CurrentUserId Long userId,
             @RequestParam(required = false) String startDate,
             @RequestParam(required = false) String endDate) {
         return Result.success(healthRecordService.getRecords(userId, startDate, endDate));
@@ -51,7 +51,7 @@ public class HealthController {
     @Operation(summary = "获取健康统计")
     @GetMapping("/stats")
     public Result<HealthStatsVO> getStats(
-            @AuthenticationPrincipal Long userId,
+            @CurrentUserId Long userId,
             @RequestParam(defaultValue = "7") Integer days) {
         return Result.success(healthRecordService.getStats(userId, days));
     }
@@ -59,7 +59,7 @@ public class HealthController {
     @Operation(summary = "获取健康趋势")
     @GetMapping("/trend/{type}")
     public Result<HealthTrendVO> getTrend(
-            @AuthenticationPrincipal Long userId,
+            @CurrentUserId Long userId,
             @PathVariable String type,
             @RequestParam(defaultValue = "30") Integer days) {
         return Result.success(healthRecordService.getTrend(userId, type, days));

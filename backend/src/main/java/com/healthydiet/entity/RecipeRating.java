@@ -2,6 +2,8 @@ package com.healthydiet.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 
+import java.time.LocalDateTime;
+
 /**
  * 食谱评分实体
  */

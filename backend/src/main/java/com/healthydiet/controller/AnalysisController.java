@@ -1,6 +1,7 @@
 package com.healthydiet.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.healthydiet.annotation.CurrentUserId;
 import com.healthydiet.common.PageQuery;
 import com.healthydiet.common.Result;
 import com.healthydiet.service.FoodAnalysisService;
@@ -8,7 +9,6 @@ import com.healthydiet.vo.FoodAnalysisVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,7 +26,7 @@ public class AnalysisController {
     @Operation(summary = "上传图片分析")
     @PostMapping("/upload")
     public Result<FoodAnalysisVO> analyzeImage(
-            @AuthenticationPrincipal Long userId,
+            @CurrentUserId Long userId,
             @RequestParam("file") MultipartFile file) {
         return Result.success(foodAnalysisService.analyzeImage(userId, file));
     }
@@ -34,7 +34,7 @@ public class AnalysisController {
     @Operation(summary = "获取分析历史")
     @GetMapping("/history")
     public Result<IPage<FoodAnalysisVO>> getHistory(
-            @AuthenticationPrincipal Long userId,
+            @CurrentUserId Long userId,
             @ModelAttribute PageQuery pageQuery) {
         return Result.success(foodAnalysisService.pageHistory(userId, pageQuery));
     }
@@ -42,7 +42,7 @@ public class AnalysisController {
     @Operation(summary = "获取分析详情")
     @GetMapping("/{id}")
     public Result<FoodAnalysisVO> getDetail(
-            @AuthenticationPrincipal Long userId,
+            @CurrentUserId Long userId,
             @PathVariable Long id) {
         return Result.success(foodAnalysisService.getDetail(userId, id));
     }

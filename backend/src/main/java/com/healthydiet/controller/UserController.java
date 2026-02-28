@@ -1,5 +1,6 @@
 package com.healthydiet.controller;
 
+import com.healthydiet.annotation.CurrentUserId;
 import com.healthydiet.common.Result;
 import com.healthydiet.dto.LoginRequest;
 import com.healthydiet.dto.LoginResponse;
@@ -12,7 +13,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -81,13 +81,13 @@ public class UserController {
 
     @Operation(summary = "获取用户信息")
     @GetMapping("/info")
-    public Result<UserInfoVO> getUserInfo(@AuthenticationPrincipal Long userId) {
+    public Result<UserInfoVO> getUserInfo(@CurrentUserId Long userId) {
         return Result.success(userService.getUserInfo(userId));
     }
 
     @Operation(summary = "更新用户信息")
     @PutMapping("/info")
-    public Result<Void> updateUserInfo(@AuthenticationPrincipal Long userId,
+    public Result<Void> updateUserInfo(@CurrentUserId Long userId,
                                        @RequestBody UserInfoVO userInfoVO) {
         userService.updateUserInfo(userId, userInfoVO);
         return Result.success();
@@ -95,7 +95,7 @@ public class UserController {
 
     @Operation(summary = "上传头像")
     @PostMapping("/avatar")
-    public Result<String> updateAvatar(@AuthenticationPrincipal Long userId,
+    public Result<String> updateAvatar(@CurrentUserId Long userId,
                                        @RequestParam("file") MultipartFile file) {
         String avatarUrl = userService.updateAvatar(userId, file);
         return Result.success(avatarUrl);
@@ -103,7 +103,7 @@ public class UserController {
 
     @Operation(summary = "设置健康目标")
     @PostMapping("/health-goal")
-    public Result<Void> setHealthGoal(@AuthenticationPrincipal Long userId,
+    public Result<Void> setHealthGoal(@CurrentUserId Long userId,
                                        @RequestBody HealthGoalVO healthGoalVO) {
         userService.setHealthGoal(userId, healthGoalVO);
         return Result.success();
@@ -111,7 +111,7 @@ public class UserController {
 
     @Operation(summary = "获取健康目标")
     @GetMapping("/health-goal")
-    public Result<HealthGoalVO> getHealthGoal(@AuthenticationPrincipal Long userId) {
+    public Result<HealthGoalVO> getHealthGoal(@CurrentUserId Long userId) {
         return Result.success(userService.getHealthGoal(userId));
     }
 }
