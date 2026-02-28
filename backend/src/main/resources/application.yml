@@ -1,0 +1,103 @@
+spring:
+  application:
+    name: healthy-diet-backend
+
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/healthy_diet?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+
+  # Redis配置
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password:
+      database: 0
+      lettuce:
+        pool:
+          max-active: 8
+          max-wait: -1ms
+          max-idle: 8
+          min-idle: 0
+
+  # 文件上传配置
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+  # Jackson配置
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+
+# MyBatis Plus配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.healthydiet.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# 服务器配置
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+# JWT配置
+jwt:
+  secret: healthy-diet-secret-key-2024
+  expiration: 604800000 # 7天
+
+# AI配置
+ai:
+  # AI API配置 (可替换为免费的AI服务)
+  api-url: https://api.openai.com/v1/chat/completions
+  api-key: ${AI_API_KEY:your-api-key}
+  model: gpt-3.5-turbo
+
+  # 图像识别配置
+  image-recognition:
+    enabled: true
+    timeout: 30000
+
+# 文件存储配置
+file:
+  upload-path: /data/uploads/
+  access-url: http://localhost:8080/api/file/
+
+# 推荐算法配置
+recommendation:
+  enabled: true
+  collaborative-filtering:
+    min-interactions: 5
+    similar-users: 10
+
+# 日志配置
+logging:
+  level:
+    com.healthydiet: debug
+    org.springframework.security: debug
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# Knife4j配置
+knife4j:
+  enable: true
+  openapi:
+    title: 健康饮食管理系统API
+    description: 基于AI的健康饮食管理小程序后端接口文档
+    version: 1.0.0
+    concat: contact@healthydiet.com
+  setting:
+    language: zh_cn

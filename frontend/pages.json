@@ -1,0 +1,120 @@
+{
+  "easycom": {
+    "autoscan": true,
+    "custom": {
+      "^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+    }
+  },
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "健康饮食"
+      }
+    },
+    {
+      "path": "pages/user/login",
+      "style": {
+        "navigationBarTitleText": "登录"
+      }
+    },
+    {
+      "path": "pages/user/profile",
+      "style": {
+        "navigationBarTitleText": "个人中心"
+      }
+    },
+    {
+      "path": "pages/recipe/list",
+      "style": {
+        "navigationBarTitleText": "食谱推荐"
+      }
+    },
+    {
+      "path": "pages/recipe/detail",
+      "style": {
+        "navigationBarTitleText": "食谱详情"
+      }
+    },
+    {
+      "path": "pages/recipe/ai-generate",
+      "style": {
+        "navigationBarTitleText": "AI食谱生成"
+      }
+    },
+    {
+      "path": "pages/analysis/image",
+      "style": {
+        "navigationBarTitleText": "食物分析"
+      }
+    },
+    {
+      "path": "pages/health/record",
+      "style": {
+        "navigationBarTitleText": "健康档案"
+      }
+    },
+    {
+      "path": "pages/health/chart",
+      "style": {
+        "navigationBarTitleText": "健康趋势"
+      }
+    },
+    {
+      "path": "pages/article/list",
+      "style": {
+        "navigationBarTitleText": "健康资讯"
+      }
+    },
+    {
+      "path": "pages/article/detail",
+      "style": {
+        "navigationBarTitleText": "资讯详情"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "健康饮食",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/tab-home.png",
+        "selectedIconPath": "static/tab-home-active.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/recipe/list",
+        "iconPath": "static/tab-recipe.png",
+        "selectedIconPath": "static/tab-recipe-active.png",
+        "text": "食谱"
+      },
+      {
+        "pagePath": "pages/analysis/image",
+        "iconPath": "static/tab-camera.png",
+        "selectedIconPath": "static/tab-camera-active.png",
+        "text": "分析"
+      },
+      {
+        "pagePath": "pages/health/record",
+        "iconPath": "static/tab-health.png",
+        "selectedIconPath": "static/tab-health-active.png",
+        "text": "健康"
+      },
+      {
+        "pagePath": "pages/user/profile",
+        "iconPath": "static/tab-user.png",
+        "selectedIconPath": "static/tab-user-active.png",
+        "text": "我的"
+      }
+    ]
+  }
+}
