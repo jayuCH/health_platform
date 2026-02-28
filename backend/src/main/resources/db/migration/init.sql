@@ -239,20 +239,20 @@ CREATE TABLE IF NOT EXISTS `system_config` (
 
 -- 插入默认食谱分类
 INSERT INTO `recipe_category` (`name`, `icon`, `sort`) VALUES
-('早餐', 'breakfast', 1),
-('午餐', 'lunch', 2),
-('晚餐', 'dinner', 3),
-('健身餐', 'fitness', 4),
-('减脂餐', 'diet', 5),
-('素食', 'vegetarian', 6),
-('甜品', 'dessert', 7);
+('breakfast', 'breakfast', 1),
+('lunch', 'lunch', 2),
+('dinner', 'dinner', 3),
+('fitness', 'fitness', 4),
+('diet', 'diet', 5),
+('vegetarian', 'vegetarian', 6),
+('dessert', 'dessert', 7);
 
 -- 插入默认系统配置
 INSERT INTO `system_config` (`config_key`, `config_value`, `description`, `group_name`) VALUES
-('app.name', '健康饮食', '应用名称', 'app'),
-('app.version', '1.0.0', '应用版本', 'app'),
-('ai.enabled', 'true', '是否启用AI功能', 'ai'),
-('ai.recipe.model', 'gpt-3.5-turbo', 'AI食谱生成模型', 'ai'),
-('ai.image.model', 'gpt-4-vision-preview', 'AI图像识别模型', 'ai'),
-('recommendation.enabled', 'true', '是否启用推荐功能', 'recommendation'),
-('recommendation.algorithm', 'collaborative', '推荐算法', 'recommendation');
+('app.name', 'HealthyDiet', 'Application name', 'app'),
+('app.version', '1.0.0', 'Application version', 'app'),
+('ai.enabled', 'true', 'Enable AI features', 'ai'),
+('ai.recipe.model', 'gpt-3.5-turbo', 'AI recipe generation model', 'ai'),
+('ai.image.model', 'gpt-4-vision-preview', 'AI image recognition model', 'ai'),
+('recommendation.enabled', 'true', 'Enable recommendation', 'recommendation'),
+('recommendation.algorithm', 'collaborative', 'Recommendation algorithm', 'recommendation');
