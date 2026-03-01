@@ -143,7 +143,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    @Transactional
     public String updateAvatar(Long userId, MultipartFile file) {
         if (file.isEmpty()) {
             throw new BusinessException("文件不能为空");
@@ -176,9 +175,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
     }
 
-    /**
-     * 发送验证码
-     */
+    @Override
+    @Transactional
     public void sendSmsCode(String phone) {
         if (!phone.matches("^1[3-9]\\d{9}$")) {
             throw new BusinessException("手机号格式不正确");
@@ -192,5 +190,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         // TODO: 调用短信服务发送验证码
         System.out.println("发送验证码到 " + phone + ": " + code);
+    }
+
+    @Override
+    @Transactional
+    public void setHealthGoal(Long userId, HealthGoalVO healthGoalVO) {
+        HealthGoal healthGoal = healthGoalService.getByUserId(userId);
+        if (healthGoal == null) {
+            healthGoal = new HealthGoal();
+            healthGoal.setUserId(userId);
+        }
+        BeanUtils.copyProperties(healthGoalVO, healthGoal);
+        healthGoalService.saveOrUpdate(healthGoal);
+    }
+
+    @Override
+    public HealthGoalVO getHealthGoal(Long userId) {
+        HealthGoal healthGoal = healthGoalService.getByUserId(userId);
+        if (healthGoal == null) {
+            return null;
+        }
+        HealthGoalVO vo = new HealthGoalVO();
+        BeanUtils.copyProperties(healthGoal, vo);
+        return vo;
     }
 }
