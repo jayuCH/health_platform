@@ -25,6 +25,7 @@
         <hutool.version>5.8.23</hutool.version>
         <knife4j.version>4.4.0</knife4j.version>
         <fastjson2.version>2.0.43</fastjson2.version>
+        <lombok.version>1.18.30</lombok.version>
     </properties>
 
     <dependencies>
@@ -110,6 +111,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
             <optional>true</optional>
         </dependency>
 
